@@ -29,8 +29,8 @@ let data = [
     'documents': items
   }
 ]
-
-seeder.connect(process.env.URL_DB, {useNewUrlParser: true, useUnifiedTopology: true}, function() {
+const uri = 'mongodb+srv://luannv:luannv@brain-loss-db.bakke.mongodb.net/brain-loss-db?retryWrites=true&w=majority'
+seeder.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}, function() {
   seeder.loadModels([
     './models/User',
   ])
