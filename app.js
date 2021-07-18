@@ -10,7 +10,8 @@ app.get('/', function (req, res) {
   res.send('Hello World!');
 });
 const uri = 'mongodb+srv://luannv:luannv@brain-loss-db.bakke.mongodb.net/brain-loss-db?retryWrites=true&w=majority'
-app.listen(3000, function () {
+var port = process.env.PORT || 8080
+app.listen(port, function () {
   const connection = mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true}).then(() => {
     console.log('Connected Database!')
   }).catch((err) => {
