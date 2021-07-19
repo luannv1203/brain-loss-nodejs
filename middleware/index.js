@@ -27,8 +27,11 @@ var self = (module.exports = {
           message: "Token Invalid",
           code: 401,
         });
-      req.user = value.data;
-      next();
+      
+      if(value && value.data) {
+        req.user = value.data
+        next()
+      }
     });
   },
 });

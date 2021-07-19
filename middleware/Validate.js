@@ -5,6 +5,7 @@ const eventValidate = () => {
     check('title', 'Title does not Empty').not().isEmpty(),
     check('startTime', 'Invalid does not Empty').not().isEmpty(),
     check('endTime', 'Invalid does not Empty').not().isEmpty(),
+    check('userId', 'UserId not empty').not().isEmpty(),
   ]
 }
 const LoginValidate = () => {

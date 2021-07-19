@@ -65,6 +65,14 @@ module.exports = {
       status: 'Success',
       data: user
     })
+  },
+  getListUser: async (req, res) => {
+    const users = await UserModel.find({$or: [{ firstName:  {$regex: '.*' + req.query.name + '.*'}}, { lastName:  {$regex: '.*' + req.query.name + '.*'}}]})
+    return res.status(200).json({
+      code: 200,
+      status: 'Success',
+      data: users
+    })
   }
 }
 function generateToken(user) {

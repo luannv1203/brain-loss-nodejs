@@ -1,7 +1,11 @@
 var express = require('express');
 var cors = require('cors')
 const mongoose = require('mongoose')
-require("dotenv").config()
+if(process.env.NODE_ENV && process.env.NODE_ENV === 'production') {
+  require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` })
+} else {
+  require("dotenv").config()
+}
 var app = express();
 const rootRouter = require('./routes')
 
