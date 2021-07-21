@@ -25,6 +25,7 @@ for (let i = 0; i < 20; i++) {
     isAllDay: isAllDay,
     location: faker.address.streetAddress(),
     notification: faker.lorem.words(),
+    user_id: '60efebc2a3ee7b383a1c421b',
     note: faker.random.words(),
     tag: _.sample(tags)
   }
@@ -37,7 +38,8 @@ let data = [
     'documents': items
   }
 ]
-const uri = 'mongodb+srv://luannv:luannv@brain-loss-db.bakke.mongodb.net/brain-loss-db?retryWrites=true&w=majority'
+// const uri = 'mongodb+srv://luannv:luannv@brain-loss-db.bakke.mongodb.net/brain-loss-db?retryWrites=true&w=majority'
+const uri = 'mongodb://localhost:27017/my_db'
 seeder.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}, function() {
   seeder.loadModels([
     './models/Event',

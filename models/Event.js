@@ -6,7 +6,7 @@ const eventSchema = new Schema({
   isAllDay: { type: Boolean },
   startTime: { type: Number, require: true },
   endTime: { type: Number, require: true },
-  userId: {type: Schema.Types.ObjectId, require: true},
+  user_id: {type: Schema.Types.ObjectId, require: true, ref: 'User'},
   location: { type: String },
   note: { type: String },
   notification: { type: String },

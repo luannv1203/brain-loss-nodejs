@@ -21,17 +21,16 @@ var self = (module.exports = {
     }
     const token = req.headers.authorization
     jwt.verify(token.split(" ")[1], tokenSecret, (err, value) => {
-      if (err)
+      if(value) {
+        req.user = value.data
+      } else {
         res.status(401).json({
           status: "error",
           message: "Token Invalid",
           code: 401,
         });
-      
-      if(value && value.data) {
-        req.user = value.data
-        next()
       }
+      next()
     });
   },
 });
