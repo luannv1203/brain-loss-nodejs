@@ -5,7 +5,8 @@ const Utils = require("../utils");
 var { validationResult } = require("express-validator");
 var ModelResponseEvent = require("../responses/Event");
 const moment = require("moment");
-const { ObjectID } = require("mongodb");
+const { ObjectID } = require("mongodb")
+const _ = require('lodash')
 
 module.exports = {
   getAllEvent: async (req, res) => {
@@ -111,7 +112,6 @@ module.exports = {
 
   },
   createEvent: async (req, res) => {
-    console.log(req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       res
@@ -188,10 +188,10 @@ module.exports = {
           error: errors.array(),
           status: "Failed",
           message: "Bad Request!",
-        });
+        })
     }
 
-    let result = await EventModel.findById(req.params.eventId);
+    let result = await EventModel.findById(req.params.eventId)
     if (!result) {
       return res.status(200).json({
         code: 200,
@@ -199,9 +199,27 @@ module.exports = {
         message: "Event not found!",
       });
     } else {
-      let response = await EventModel.findById(req.params.eventId).updateOne(
+      let response = await EventModel.findById(ObjectID(req.params.eventId)).updateOne(
         req.body
-      );
+      )
+      const oldParticipant = await PaticipantModel.find({event_id: ObjectID(req.params.eventId)})
+      req.body.participants.forEach(async item => {
+        if (!item.user_id) {
+          await PaticipantModel.create({
+            event_id: result._id,
+            user_id: item._id,
+            confirm: false
+          })
+        }
+      })
+      oldParticipant.forEach(async item => {
+        let check = req.body.participants.find(part => {
+          return String(part.user_id) === String(item.user_id)
+        })
+        if(!check) {
+          await PaticipantModel.deleteOne({user_id: item.user_id})
+        }
+      })
       if (!response) {
         return res.status(200).json({
           code: 200,
@@ -225,6 +243,7 @@ module.exports = {
       });
     }
     let result = await EventModel.findByIdAndDelete(req.params.eventId);
+    await PaticipantModel.deleteMany({event_id: req.params.eventId})
     if (!result) {
       return res.status(200).json({
         code: 200,
