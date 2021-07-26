@@ -12,7 +12,8 @@ const rootRouter = require('./routes')
 app.use(cors())
 app.get('/', function (req, res) {
   res.send('Hello World!');
-});
+})
+
 const uri = process.env.URL_DB
 var port = process.env.PORT || 8080
 app.listen(port, function () {

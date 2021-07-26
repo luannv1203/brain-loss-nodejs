@@ -7,6 +7,7 @@ var {validationResult} = require('express-validator')
 
 module.exports = {
   login: async (req, res) => {
+    console.log(111111)
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
       return res.status(400).json({ code: 400, errors: errors.array(), status: 'Failed', message: 'Bad Request!' })

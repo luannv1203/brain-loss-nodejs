@@ -23,11 +23,24 @@ const SignUpValidate = () => {
     check('password', 'Password not empty').not().isEmpty(),
   ]
 }
+const RegisterTokenValidate = () => {
+  return [
+    check('token', 'Token not empty').not().isEmpty()
+  ]
+}
+const SendNotificationnValidate = () => {
+  return [
+    check('title', 'Title not empty').not().isEmpty(),
+    check('body', 'Body not empty').not().isEmpty(),
+  ]
+}
 
 const validate = {
   eventValidate: eventValidate,
   LoginValidate: LoginValidate,
-  SignUpValidate: SignUpValidate
+  SignUpValidate: SignUpValidate,
+  RegisterTokenValidate: RegisterTokenValidate,
+  SendNotificationnValidate: SendNotificationnValidate
 }
 
 module.exports = {validate}
