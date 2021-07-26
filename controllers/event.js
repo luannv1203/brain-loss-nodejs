@@ -257,4 +257,36 @@ module.exports = {
       message: "Delete Event Success",
     });
   },
+  getEventInvited: async (req, res) => {
+    var events = await PaticipantModel.aggregate([
+      {
+        $match: {
+          $and: [
+            {'confirm': { $gte: false }}, 
+            {'user_id': ObjectID(req.user._id)}
+          ]
+        }
+      },
+      {
+        $lookup: {
+          from: 'events',
+          localField: 'event_id',
+          foreignField: '_id',
+          as: 'event'
+        }
+      },
+      {
+        $replaceRoot: { newRoot: { $mergeObjects: [ { $arrayElemAt: [ "$event", 0 ] }, "$$ROOT" ] } },
+      },
+      {$project: { fromItems: 0 }}
+    ])
+    events.forEach(event => {
+      delete event.event
+    })
+    return res.status(200).json({
+      code: 200,
+      status: 'Success',
+      data: events
+    })
+  }
 };
