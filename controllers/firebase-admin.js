@@ -21,13 +21,15 @@ module.exports = {
     ])
     let data = req.body
     data.user_id = req.user._id
-    console.log('data', data)
+    console.log('data', check)
     if(!check) {
+      console.log(11111)
       let result = await NotificationModel.create(data)
       if(!result) {
         res.status(200).json({ message: "Register FCM Token Failed!" });
       }
     } else {
+      console.log(222222)
       await NotificationModel.find({
         'deviceID': data.deviceID
       }).updateOne(data)
