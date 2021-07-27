@@ -1,6 +1,8 @@
 var express = require('express');
 var cors = require('cors')
 const mongoose = require('mongoose')
+const job = require('./job-schedule')
+
 if(process.env.NODE_ENV && process.env.NODE_ENV === 'production') {
   require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` })
 } else {
@@ -33,5 +35,6 @@ app.listen(port, function () {
 
   //ROuter use
   app.use('/', rootRouter)
+  job()
   module.exports = {connection}
 });

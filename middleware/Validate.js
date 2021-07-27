@@ -25,6 +25,7 @@ const SignUpValidate = () => {
 }
 const RegisterTokenValidate = () => {
   return [
+    check('deviceID', 'DeviceID not empty').not().isEmpty(),
     check('token', 'Token not empty').not().isEmpty()
   ]
 }
