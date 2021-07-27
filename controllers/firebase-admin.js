@@ -12,7 +12,7 @@ admin.initializeApp({
 module.exports = {
   registerToken: async (req, res) => {
     const errors = validationResult(req);
-    let check = NotificationModel.aggregate([
+    let check = await NotificationModel.aggregate([
       {
         $match: {
           'deviceID': req.body.deviceID
