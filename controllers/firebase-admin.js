@@ -21,6 +21,7 @@ module.exports = {
     ])
     let data = req.body
     data.user_id = req.user._id
+    console.log('data', data)
     if(!check) {
       let result = await NotificationModel.create(data)
       if(!result) {
