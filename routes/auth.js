@@ -8,5 +8,5 @@ const middleware = require('../middleware')
 router.post('/login', validate.LoginValidate(), user.login)
 router.post('/sign-up', validate.SignUpValidate(), user.signUp)
 router.post('/register-firebase-token', middleware.verifyToken, validate.RegisterTokenValidate(),firebase.registerToken)
-router.post('/send-notifications', middleware.verifyToken, validate.SendNotificationnValidate(),firebase.notifications)
+// router.post('/send-notifications', middleware.verifyToken, validate.SendNotificationnValidate(),firebase.notifications)
 module.exports = router

@@ -28,7 +28,6 @@ module.exports = {
       }
     } else {
       await NotificationModel.find({
-        'user_id': ObjectID(req.user._id),
         'deviceID': data.deviceID
       }).updateOne(data)
     }
@@ -36,14 +35,11 @@ module.exports = {
   },
 
   notifications: async (notification, tokens) => {
-    console.log(tokens)
-    console.log(notification)
     try {
       let rs = await admin.messaging().sendMulticast({
         tokens: tokens,
         notification: notification
       });
-      console.log(rs)
     } catch (err) {
       console.log(err)
     }
