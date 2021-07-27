@@ -12,13 +12,9 @@ admin.initializeApp({
 module.exports = {
   registerToken: async (req, res) => {
     const errors = validationResult(req);
-    let check = await NotificationModel.aggregate([
-      {
-        $match: {
-          'deviceID': req.body.deviceID
-        }
-      }
-    ])
+    let check = await NotificationModel.findOne({
+      'deviceID': req.body.deviceID
+    })
     let data = req.body
     data.user_id = req.user._id
     console.log('data', check)
@@ -30,7 +26,7 @@ module.exports = {
       }
     } else {
       console.log(222222)
-      await NotificationModel.find({
+      await NotificationModel.findOne({
         'deviceID': data.deviceID
       }).updateOne(data)
     }
