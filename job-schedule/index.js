@@ -9,7 +9,7 @@ module.exports = jobSchedule = () => {
     let events = await EventModel.aggregate([
       {
         $match: {
-        'startTime': {$gte: new Date().getTime()}
+        'notification': new Date().getTime()
         }
       },
       {

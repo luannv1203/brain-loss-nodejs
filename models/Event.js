@@ -9,7 +9,7 @@ const eventSchema = new Schema({
   user_id: {type: Schema.Types.ObjectId, require: true, ref: 'User'},
   location: { type: String },
   note: { type: String },
-  notification: { type: String },
+  notification: { type: Number },
   tag: {type: String}
 })
 

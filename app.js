@@ -35,6 +35,6 @@ app.listen(port, function () {
 
   //ROuter use
   app.use('/', rootRouter)
-  job()
+  // job()
   module.exports = {connection}
 });

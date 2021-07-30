@@ -24,7 +24,7 @@ for (let i = 0; i < 20; i++) {
     endTime: isAllDay ? end : timeEnd,
     isAllDay: isAllDay,
     location: faker.address.streetAddress(),
-    notification: faker.lorem.words(),
+    notification: isAllDay ? (start - 60 * 15 * 1000) : (new Date(timeStart).setSeconds(0, 0) - 60 * 15 * 1000),
     user_id: '60efebc2a3ee7b383a1c421b',
     note: faker.random.words(),
     tag: _.sample(tags)
