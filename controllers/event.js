@@ -258,11 +258,12 @@ module.exports = {
     });
   },
   getEventInvited: async (req, res) => {
+    console.log(req.user);
     var events = await PaticipantModel.aggregate([
       {
         $match: {
           $and: [
-            {'confirm': { $gte: false }}, 
+            {'confirm': false}, 
             {'user_id': ObjectID(req.user._id)}
           ]
         }
@@ -287,6 +288,40 @@ module.exports = {
       code: 200,
       status: 'Success',
       data: events
+    })
+  },
+  confirmEvent: async (req, res) => {
+    if(!req.params.eventId) {
+      res.status(400).json({
+        status: 'Failed',
+        message: 'Bad Request!',
+        code: 400
+      })
+    }
+
+    console.log(req.params)
+
+    let item = await PaticipantModel.findOne({
+      event_id: ObjectID(req.params.eventId),
+      user_id: req.user._id
+    })
+    console.log(item)
+    let check = await PaticipantModel.findOne({
+      event_id: ObjectID(req.params.eventId),
+      user_id: req.user._id
+    }).updateOne({confirm: true})
+    console.log(check)
+    if (!check) {
+      res.status(200).json({
+        code: 200,
+        status: 'Failed!',
+        message: 'Confirm Failed!'
+      })
+    }
+    res.status(200).json({
+      code: 200,
+      status: 'Success',
+      message: 'Confirm Event Success!'
     })
   }
 };

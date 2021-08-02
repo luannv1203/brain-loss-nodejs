@@ -13,7 +13,7 @@ for (let i = 0; i < 20; i++) {
   } else {
     key = day < 10 ? `2021-${i}-0${day}` : `2021-${i}-${day}`
   }
-  const start = new Date(key).setHours(8)
+  const start = new Date(key).setHours(8, 0)
   const end = new Date(key).setHours(23,59,59,999)
   const timeStart = Math.floor(Math.random() * (end - start) + start)
   const timeEnd = Math.floor(Math.random() * (end - timeStart) + timeStart)

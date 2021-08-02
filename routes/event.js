@@ -10,4 +10,5 @@ router.post('', middleware.verifyToken, validate.eventValidate(), event.createEv
 router.put('/:eventId', middleware.verifyToken, validate.eventValidate(), event.editEvent)
 router.get('/:eventId', middleware.verifyToken, event.getEventById)
 router.delete('/:eventId', middleware.verifyToken, event.deleteEventById)
+router.put('/confirm/:eventId', middleware.verifyToken, event.confirmEvent)
 module.exports = router

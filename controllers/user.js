@@ -7,7 +7,6 @@ var {validationResult} = require('express-validator')
 
 module.exports = {
   login: async (req, res) => {
-    console.log(111111)
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
       return res.status(400).json({ code: 400, errors: errors.array(), status: 'Failed', message: 'Bad Request!' })
@@ -44,7 +43,6 @@ module.exports = {
     }
     let data = req.body
     data.password = bcrypt.hashSync(data.password, 10)
-    console.log(data)
     const isCreateUser = await UserModel.create(data)
     if(!isCreateUser) {
       return res.status(200).json({
