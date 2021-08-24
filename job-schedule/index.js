@@ -67,7 +67,7 @@ module.exports = jobSchedule = () => {
       })
       const notification = {
         title: item.title,
-        body: `${moment(item.startTime).utc().local().format('HH:mm A')} - ${moment(item.endTime).utc().local().format('HH:mm A')}`
+        body: `${moment(item.startTime).utc().tz('Asia/Ho_Chi_Minh').format('HH:mm A')} - ${moment(item.endTime).utc().tz('Asia/Ho_Chi_Minh').format('HH:mm A')}`
       }
       if(tokens.length) {
         firebase.notifications(notification, tokens)
