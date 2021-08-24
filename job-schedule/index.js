@@ -57,7 +57,6 @@ module.exports = jobSchedule = () => {
         }
       }
     ])
-    console.log(events);
     events.forEach(item => {
       var tokens = []
       if(item.token) {
@@ -68,9 +67,8 @@ module.exports = jobSchedule = () => {
       })
       const notification = {
         title: item.title,
-        body: `${moment(item.startTime).format('hh:MM A')} - ${moment(item.endTime).format('hh:MM A')}`
+        body: `${moment(item.startTime).format('HH:mm A')} - ${moment(item.endTime).format('HH:mm A')}`
       }
-      console.log(tokens)
       if(tokens.length) {
         firebase.notifications(notification, tokens)
       }
