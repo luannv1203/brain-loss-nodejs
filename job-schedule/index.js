@@ -5,11 +5,10 @@ const firebase = require('../controllers/firebase-admin')
 
 module.exports = jobSchedule = () => {
   cron.schedule('* * * * *', async () => {
-    console.log(new Date().getTime())
     let events = await EventModel.aggregate([
       {
         $match: {
-        'notification': new Date().getTime()
+        'notification': new Date().setSeconds(0,0)
         }
       },
       {
@@ -58,6 +57,7 @@ module.exports = jobSchedule = () => {
         }
       }
     ])
+    console.log(events);
     events.forEach(item => {
       var tokens = []
       if(item.token) {
@@ -70,6 +70,7 @@ module.exports = jobSchedule = () => {
         title: item.title,
         body: `${moment(item.startTime).format('hh:MM A')} - ${moment(item.endTime).format('hh:MM A')}`
       }
+      console.log(tokens)
       if(tokens.length) {
         firebase.notifications(notification, tokens)
       }

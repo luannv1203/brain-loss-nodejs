@@ -71,7 +71,9 @@ module.exports = {
       var hihi = []
       event.participants.forEach(async (part) => {
         const info = await UserModel.findById(part.user_id)
-        part = {...part, ...{firstName: info.firstName, lastName: info.lastName, avatar: info.avatar}}
+        if(info) {
+          part = {...part, ...{firstName: info.firstName, lastName: info.lastName, avatar: info.avatar}}
+        }
         hihi.push(part)
       })
       event.participants = hihi
