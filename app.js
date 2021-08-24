@@ -2,12 +2,19 @@ var express = require("express");
 var cors = require("cors");
 const mongoose = require("mongoose");
 const job = require("./job-schedule");
+var admin = require("firebase-admin")
+var service = require('./configs/brain-loss-firebase-adminsdk-yjb70-0a3f903af7.json')
 
 if (process.env.NODE_ENV && process.env.NODE_ENV === "production") {
   require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
 } else {
   require("dotenv").config();
 }
+
+admin.initializeApp({
+  credential: admin.credential.cert(service),
+  databaseURL: "https://brain-loss-default-rtdb.firebaseio.com"
+});
 var app = express();
 const rootRouter = require("./routes");
 
